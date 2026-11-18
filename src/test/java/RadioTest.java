@@ -1,112 +1,125 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class RadioTest {
 
+    private Radio radio;
+
     @BeforeEach
     void setUp() {
-        Radio radio = new Radio();
+        radio = new Radio();
     }
 
     @Test
     void nextFromZero() {
-        Radio.setCurrentStation(0);
-        Radio.next();
-        assertEquals(1, Radio.getCurrentStation());
+        radio.setCurrentStation(0);
+        radio.next();
+        assertEquals(1, radio.getCurrentStation());
     }
 
     @Test
     void nextFromFive() {
-        Radio.setCurrentStation(5);
-        Radio.next();
-        assertEquals(6, Radio.getCurrentStation());
+        radio.setCurrentStation(5);
+        radio.next();
+        assertEquals(6, radio.getCurrentStation());
     }
 
     @Test
     void nextFromNine() {
-        Radio.setCurrentStation(9);
-        Radio.next();
-        assertEquals(0, Radio.getCurrentStation());
+        radio.setCurrentStation(9);
+        radio.next();
+        assertEquals(0, radio.getCurrentStation());
     }
 
     @Test
     void prevFromNine() {
-        Radio.setCurrentStation(9);
-        Radio.prev();
-        assertEquals(8, Radio.getCurrentStation());
+        radio.setCurrentStation(9);
+        radio.prev();
+        assertEquals(8, radio.getCurrentStation());
     }
 
     @Test
     void prevFromFive() {
-        Radio.setCurrentStation(5);
-        Radio.prev();
-        assertEquals(4, Radio.getCurrentStation());
+        radio.setCurrentStation(5);
+        radio.prev();
+        assertEquals(4, radio.getCurrentStation());
     }
 
     @Test
     void prevFromZero() {
-        Radio.setCurrentStation(0);
-        Radio.prev();
-        assertEquals(9, Radio.getCurrentStation());
+        radio.setCurrentStation(0);
+        radio.prev();
+        assertEquals(9, radio.getCurrentStation());
+    }
+
+    @Test
+    void setBelowRangeIgnored() {
+        radio.setCurrentStation(5);
+        radio.setCurrentStation(-1);
+        assertEquals(5, radio.getCurrentStation());
+    }
+
+    @Test
+    void setAboveRangeIgnored() {
+        radio.setCurrentStation(5);
+        radio.setCurrentStation(10);
+        assertEquals(5, radio.getCurrentStation());
     }
 
     @Test
     void increaseVolumeFromZero() {
-        Radio.increaseVolume();
-        assertEquals(1, Radio.getCurrentVolume());
+        radio.increaseVolume();
+        assertEquals(1, radio.getCurrentVolume());
     }
 
     @Test
     void increaseVolumeFromFifty() {
-        for (int i = 0; i < 50; i++) RadioincreaseVolume();
-        Radio.increaseVolume();
-        assertEquals(51, Radio.getCurrentVolume());
-    }
-
-    private void RadioincreaseVolume() {
-
+        for (int i = 0; i < 50; i++) radio.increaseVolume();
+        radio.increaseVolume();
+        assertEquals(51, radio.getCurrentVolume());
     }
 
     @Test
     void increaseVolumeToHundred() {
-        for (int i = 0; i < 99; i++) Radio.increaseVolume();
-        Radio.increaseVolume();
-        assertEquals(100, Radio.getCurrentVolume());
+        for (int i = 0; i < 99; i++) radio.increaseVolume();
+        radio.increaseVolume();
+        assertEquals(100, radio.getCurrentVolume());
     }
 
     @Test
     void increaseVolumeAtMaxDoesNothing() {
-        for (int i = 0; i < 100; i++) Radio.increaseVolume();
-        Radio.increaseVolume();
-        assertEquals(100, Radio.getCurrentVolume());
+        for (int i = 0; i < 100; i++) radio.increaseVolume();
+        radio.increaseVolume();
+        assertEquals(100, radio.getCurrentVolume());
     }
 
     @Test
     void decreaseVolumeFromHundred() {
-        for (int i = 0; i < 100; i++) Radio.increaseVolume();
-        Radio.decreaseVolume();
-        assertEquals(99, Radio.getCurrentVolume());
+        for (int i = 0; i < 100; i++) radio.increaseVolume();
+        radio.decreaseVolume();
+        assertEquals(99, radio.getCurrentVolume());
     }
 
     @Test
     void decreaseVolumeFromFifty() {
-        for (int i = 0; i < 50; i++) Radio.increaseVolume();
-        Radio.decreaseVolume();
-        assertEquals(49, Radio.getCurrentVolume());
+        for (int i = 0; i < 50; i++) radio.increaseVolume();
+        radio.decreaseVolume();
+        assertEquals(49, radio.getCurrentVolume());
     }
 
     @Test
     void decreaseVolumeToZero() {
-        Radio.increaseVolume();
-        Radio.decreaseVolume();
-        assertEquals(0, Radio.getCurrentVolume());
+        radio.increaseVolume();
+        radio.decreaseVolume();
+        assertEquals(0, radio.getCurrentVolume());
     }
 
     @Test
     void decreaseVolumeAtMinDoesNothing() {
-        Radio.decreaseVolume();
-        assertEquals(0, Radio.getCurrentVolume());
+        radio.decreaseVolume();
+        assertEquals(0, radio.getCurrentVolume());
     }
 }

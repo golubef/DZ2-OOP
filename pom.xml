@@ -33,6 +33,7 @@
                 <version>${surefire.version}</version>
             </plugin>
 
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -45,8 +46,10 @@
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>verify</phase>
-                        <goals><goal>report</goal></goals>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

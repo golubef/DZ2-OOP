@@ -1,47 +1,29 @@
 public class Radio {
-    private static int currentStation;
-    private static int currentVolume;
+    private int currentStation;
+    private int currentVolume;
 
-    public static int getCurrentStation() {
-        return currentStation;
-    }
+    public int getCurrentStation() { return currentStation; }
 
-    public static void setCurrentStation(int station) {
-        if (station < 0 || station > 9) {
-            return;
-        }
+    public void setCurrentStation(int station) {
+        if (station < 0 || station > 9) return;
         currentStation = station;
     }
 
-    public static void next() {
-        if (currentStation == 9) {
-            currentStation = 0;
-        } else {
-            currentStation = currentStation + 1;
-        }
+    public void next() {
+        currentStation = (currentStation == 9) ? 0 : currentStation + 1;
     }
 
-    public static void prev() {
-        if (currentStation == 0) {
-            currentStation = 9;
-        } else {
-            currentStation = currentStation - 1;
-        }
+    public void prev() {
+        currentStation = (currentStation == 0) ? 9 : currentStation - 1;
     }
 
-    public static int getCurrentVolume() {
-        return currentVolume;
+    public int getCurrentVolume() { return currentVolume; }
+
+    public void increaseVolume() {
+        if (currentVolume < 100) currentVolume++;
     }
 
-    public static void increaseVolume() {
-        if (currentVolume < 100) {
-            currentVolume = currentVolume + 1;
-        }
-    }
-
-    public static void decreaseVolume() {
-        if (currentVolume > 0) {
-            currentVolume = currentVolume - 1;
-        }
+    public void decreaseVolume() {
+        if (currentVolume > 0) currentVolume--;
     }
 }
